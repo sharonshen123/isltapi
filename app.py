@@ -10,6 +10,11 @@ print(json_data)
 app = flask.Flask(__name__)
 
 
-@app.route('/')
+@app.route('/getData')
 def home():
     return json_data
+@app.route("/createData", methods=['GET', 'POST'])
+def create():
+    if request.method == 'POST':
+        print(request.form)
+    return render_template('./create.html')

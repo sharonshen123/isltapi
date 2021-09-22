@@ -1,5 +1,5 @@
 import flask
-from flask import request
+from flask import request,render_template
 import pandas as pd
 
 cols=["pg","word","definition","sentence","category","sample","synonyms"]
@@ -13,8 +13,8 @@ app = flask.Flask(__name__)
 @app.route('/getData')
 def home():
     return json_data
-@app.route("/createData", methods=['GET', 'POST'])
+@app.route("/", methods=['GET', 'POST'])
 def create():
     if request.method == 'POST':
         print(request.form)
-    return render_template('./create.html')
+    return render_template('create.html')

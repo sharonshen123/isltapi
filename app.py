@@ -1,21 +1,15 @@
 import flask
 from flask import request
 import pandas as pd
-from datetime import datetime as dt
 
-data = pd.read_csv('data.csv', names=['s', 'e', 'm']).set_index('m')
-
-series = pd.Series(index=range(data.s.min(), dt.now().year + 1))
-for m in data.index:
-    series.loc[data.loc[m].s:data.loc[m].e] = m
+cols=["pg","word","definition","sentence","category","sample","synonyms"]
+data = pd.read_csv('ISLT_data.csv', sep=',', engine='python', usecols=cols,na_values = [''])
+json_data = data.to_json(orient = "records")
+print(json_data)
 
 app = flask.Flask(__name__)
 
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 def home():
-    year = int(request.args['year'])
-    try:
-        return series.loc[year]
-    except KeyError:
-        return f'Invalid input ({series.index.min()} - {series.index.max()})'
+    return json_data

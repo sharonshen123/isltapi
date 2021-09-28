@@ -1,21 +1,35 @@
 import flask
-from flask import request
+from flask import request,render_template
 import pandas as pd
-from datetime import datetime as dt
+from flask_cors import CORS, cross_origin
 
-data = pd.read_csv('data.csv', names=['s', 'e', 'm']).set_index('m')
-
-series = pd.Series(index=range(data.s.min(), dt.now().year + 1))
-for m in data.index:
-    series.loc[data.loc[m].s:data.loc[m].e] = m
-
-app = flask.Flask(__name__)
+cols=["pg","word","definition","sentence","category","sample","synonyms"]
+data = pd.read_csv('ISLT_data.csv', sep=',', engine='python', usecols=cols,na_values = [''])
+json_data = data.to_json(orient = "records")
+json_list = json_data.replace("\\","")
+print(json_list)
 
 
-@app.route('/', methods=['GET'])
+app = flask.Flask(__name__,template_folder='template')
+CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
+print('***Backend Running***')
+
+@app.route('/')
 def home():
-    year = int(request.args['year'])
-    try:
-        return series.loc[year]
-    except KeyError:
-        return f'Invalid input ({series.index.min()} - {series.index.max()})'
+   return render_template('create.html')
+@app.route('/getData',methods=['GET'])
+def getData():
+    return json_list
+@app.route('/sendData', methods=['POST']) 
+@cross_origin()
+def sendData():
+    postData= pd.json_normalize(request.form)
+    newData = pd.concat([data,postData],ignore_index=True)
+    # adding new data into csv
+    newData.to_csv('ISLT_data.csv',index=False)
+    return request.form
+    
+if __name__ == '__main__':
+    app.run()

@@ -1,18 +1,42 @@
 import flask
 from flask import request,render_template
 import pandas as pd
+from flask_cors import CORS, cross_origin
+import os
 
-cols=["pg","word","definition","sentence","category","sample","synonyms"]
-data = pd.read_csv('./ISLT_data.csv', sep=',', engine='python', usecols=cols,na_values = [''])
-json_data = data.to_json(orient = "records")
-print(json_data)
+csv_path = "./ISLT_data.csv" # file should be saved somewhere else, should not be a part of build folder
 
-app = flask.Flask(__name__)
+def retrieveData():
+    cols=["pg","word","definition","sentence","category","sample","synonyms"]
+    data = pd.read_csv(csv_path, sep=',', usecols=cols,na_values = [''])
+    json_data = data.to_json(orient = "records")
+    json_list = json_data.replace("\\","")
+    print(json_list)
+    return json_list
 
 
-@app.route('/getData')
-def home():
-    return json_data
+app = flask.Flask(__name__,template_folder='template')
+CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
+print('***Backend Running***')
+
 @app.route('/')
-def student():
-   return render_template('create.html')
+def home():
+    return render_template('create.html')
+
+@app.route('/getData',methods=['GET'])
+def getData():
+    return retrieveData()
+
+@app.route('/sendData', methods=['GET','POST']) 
+@cross_origin()
+def sendData():
+    if request.method == "GET":
+        postData= pd.json_normalize(request.form)
+        newData = pd.concat([data,postData],ignore_index=True)
+        # adding new data into csv
+        os.remove(csv_path)
+        newData.to_csv(csv_path,index=False)
+        print(postData)
+    return request.form

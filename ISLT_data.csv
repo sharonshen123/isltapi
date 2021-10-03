@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿pg,word,definition,sentence,category,sample,synonyms
 pg,question,option,,,,
 2,plump,having a full rounded shape.,"I would lay my cheeks gently against the comfortable cheeks of my pillow, as plump and blooming as the cheeks of babyhood",adj,,
@@ -41,3 +42,11 @@ pg,question,option,,,,
 62,medley,a varied mixture of people or things; a miscellany.,"But its struggles are too far off, too much confused; scarcely can I perceive the colourless reflection in which are blended the uncapturable whirling medley of radiant hues, and I cannot distinguish its form, cannot invite it",,,
 66,emanate,(of something abstract but perceptible) issue or spread out from (a source).,"They were rooms of that country order which fascinate our sense of smell with the countless odours emanating from the virtues, wisdom, habits, a whole secret system of life, invisible, superabundant and profoundly moral",verb,warmth emanated from the fireplace,"emerge, flow, pour, proceed, issue, ensue, come out, come forth, spread out, come, be uttered, be emitted, be transmitted, arise, originate, stem, derive, spring, start"
 67,provident,making or indicative of timely preparation for the future,"smells lazy and punctual as a village clock, roving and settled, heedless and provident,,rejoicing in a peace which brings onlu additional anxiety",,,"prescient,prudent, far-sighted, judicious, shrewd, circumspect, forearmed, wise, sagacious, sensible, commonsensical, politic, cautious, careful, thrifty, forehanded, forethoughtful"
+=======
+pg,word,definition,sentence,category,sample,synonyms
+2,plump,having a full rounded shape,"I would lay my cheeks gently against the comfortable cheeks of my pillow, as <b>plump</b> and blooming as the cheeks of babyhood",adj,,
+2,glimmering,shining faintly with a wavering light,"my body, the side upon which I was lying, loyally preserving from the past an impression which my mind should never have forgotten, brought back before my eyes the <b>glimmering</b> flame of the night-light in its bowl of Bohemian glass, shaped like an urn and hung by chains from the ceiling, and the chimney-piece of Siena marble in my bedroom at Combray, in my great-aunt's house, in those far distant days which, at the moment of waking, seemed present without being clearly penned, but would become plainer in a little while when I was properly awake.",adj,,
+3,thrall,the state of being in someone's power or having great power over someone,"while I was asleep I had returned without the least effort to an earlier stage in my life, now for ever outgrown; and had come under the thrall of one of my childish terrors, such as that old terror of my great-uncle's pulling my curls, which was effectually dispelled on the day—the dawn of a new era to me—on which they were finally cropped from my head. ",noun,the town was in thrall to a villain,"power, clutches, hands, control, grip, grasp, yoke, enslavement, bondage, slavery, subjection, subjugation, servitude, tyranny, oppression, domination, hegemony, supremacy"
+4,divergent,tending to be different or develop in different directions,"suppose that he gets drowsy in some even more abnormal and <b>divergent</b> position,adj,divergent interpretations,
+",,,
+>>>>>>> c78487781c9fd34558bc922eb5e7546120c6b247

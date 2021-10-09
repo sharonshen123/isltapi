@@ -62,6 +62,8 @@ def filterBy():
     newData = data[(data['category'] == filterOptions['category']) & (data['book'] == filterOptions['book'])]
     print(newData)
     return retrieveData(newData)
+@app.route('/filterForQuiz', methods=['GET', 'POST'])
+@cross_origin()
 def filterForQuiz():
     data = readCSV()
     filterOptions = request.get_json()  # get filterOptions from request

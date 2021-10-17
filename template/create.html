@@ -19,13 +19,17 @@
             <div class="card text-white bg-info mb-3" style="max-width: 25rem;">
                 <div class="card-header">Create New Data</div>
                 <div class="card-body">
-                    <h5 class="card-title">Fill CSV Data</h5>
+                    <h5 class="card-title">Fill Word Data</h5>
                     <form class="form-inline" action="sendData" method="POST">
                         <div class="item">
-                            <input name="pg" id="pg" type="number" value="{{ pg }}" placeholder="Enter Page Number">
+							 <textarea class="form-control shadow-none textarea" name="function" id="function" type="text" value="{{ function }}" placeholder="Enter c for card,q for quiz,b for both" 
+							      style="resize: none"></textarea>
                         </div>
-                        <div class="item">
-                            <input name="book" id="book" type="text" value="{{ book }}" placeholder="Enter Book Name">
+						<div class="item">
+							 <input name="book" id="book" type="text" value="{{ book }}" placeholder="Enter Book name">
+                        </div>
+						<div class="item">
+                            <input name="pg" id="pg" type="number" value="{{ pg }}" placeholder="Enter Page Number">
                         </div>
                         <div class="item">
                             <input name="word" id="word" type="text" value="{{ word }}" placeholder="Enter Word">
@@ -38,6 +42,10 @@
                             <textarea class="form-control shadow-none textarea" name="sentence" id="sentence" value="{{ sentence }}" placeholder="Enter Sentence"
                                 style="resize: none"></textarea>
                         </div>
+						<div class="item">
+                            <textarea class="form-control shadow-none textarea" name="question" id="question" value="{{ question }}" placeholder="Enter Question sentence, leave word as ---"
+                                style="resize: none"></textarea>
+                        </div>
 
                         <div class="item">
                             <input name="category" id="category" type="text" value="{{ category }}" placeholder="Enter Category">
@@ -48,6 +56,10 @@
                         </div>
                         <div class="item">
                             <input name="synonyms" id="synonyms" type="text" value="{{ synonyms }}" placeholder="Enter Synonyms">
+                        </div>
+						<div class="item">
+                            <textarea class="form-control shadow-none textarea" name="choices" id="choices" value="{{ choices }}" placeholder="Enter Choices for Question, separate choices by comma"
+                                style="resize: none"></textarea>
                         </div>
                         <div class="btn-block">
                             <button type="submit" class="btn btn-danger" href="/">Save</button>

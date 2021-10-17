@@ -4,21 +4,29 @@ import pandas as pd
 from flask_cors import CORS, cross_origin
 import os
 
+
+
 # file should be saved somewhere else, should not be a part of build folder
-csv_path = "./words.csv"
+csv_path = "./words4.csv"
 
 
 def readCSV():
-    cols = ["function","book","word","pg","definition","sentence","question","category","sample","synonym","choices"]
-    data = pd.read_csv(csv_path, sep=',', usecols=cols, na_values=[''])
+    cols = ["function","book","word","pg","definition","sentence","question","category","sample","synonyms","choices"]
+    data = pd.read_csv(csv_path, sep=',', usecols=cols, na_values=[''], doublequote=True,
+                          skipinitialspace='True')
+    data = data.replace("\"\"", "\"")
+    
     return data
 
 print('***Backend Running***')
 
 def retrieveData(data):
     # data = readCSV()
+
     json_data = data.to_json(orient="records")
+    
     json_list = json_data.replace("\\", "")
+    
     print(json_list)
     return json_list
 
@@ -59,7 +67,15 @@ def sendData():
 def filterBy():
     data = readCSV()
     filterOptions = request.get_json()  # get filterOptions from request
-    newData = data[(data['category'] == filterOptions['category']) & (data['book'] == filterOptions['book'])]
+    if (filterOptions['category'] == "All") & (filterOptions['book'] == "All"):
+        newData = data[((data['function'] == "c") | (data['function'] == "b")) ]
+    elif (filterOptions['category'] == "All") & (filterOptions['book'] != "All"):
+        newData = data[(data['book'] == filterOptions['book']) & ((data['function'] == "c") | (data['function'] == "b")) ]
+    elif (filterOptions['category'] != "All") & (filterOptions['book'] == "All"):
+        newData = data[(data['category'] == filterOptions['category']) & ((data['function'] == "c") | (data['function'] == "b")) ]
+    else:
+        newData = data[(data['category'] == filterOptions['category']) & (data['book'] == filterOptions['book']) & ((data['function'] == "c") | (data['function'] == "b")) ]
+    
     print(newData)
     return retrieveData(newData)
 @app.route('/filterForQuiz', methods=['GET', 'POST'])
@@ -67,6 +83,13 @@ def filterBy():
 def filterForQuiz():
     data = readCSV()
     filterOptions = request.get_json()  # get filterOptions from request
-    newData = data[(data['category'] == filterOptions['category']) & (data['book'] == filterOptions['book']) & ((data['function'] == "q") | (data['function'] == "b")) ]
+    if (filterOptions['category'] == "All") & (filterOptions['book'] == "All"):
+        newData = data[((data['function'] == "q") | (data['function'] == "b")) ]
+    elif (filterOptions['category'] == "All") & (filterOptions['book'] != "All"):
+        newData = data[(data['book'] == filterOptions['book']) & ((data['function'] == "q") | (data['function'] == "b")) ]
+    elif (filterOptions['category'] != "All") & (filterOptions['book'] == "All"):
+        newData = data[(data['category'] == filterOptions['category']) & ((data['function'] == "q") | (data['function'] == "b")) ]
+    else:
+        newData = data[(data['category'] == filterOptions['category']) & (data['book'] == filterOptions['book']) & ((data['function'] == "q") | (data['function'] == "b")) ]
     print(newData)
     return retrieveData(newData)
